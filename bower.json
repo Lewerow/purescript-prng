@@ -1,5 +1,6 @@
 {
   "name": "purescript-prng",
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -17,5 +18,9 @@
     "purescript-console": "^2.0.0",
     "purescript-test-unit": "^10.0.1",
     "purescript-debug": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Lewerow/purescript-prng.git"
   }
 }
