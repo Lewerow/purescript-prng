@@ -3,7 +3,7 @@ module Test.Xorshift128 where
 import Prelude
 import Test.Unit.Assert as Assert
 import Data.Array ((:))
-import PRNG.Xorshift128 (Xorshift128(..))
+import PRNG.Xorshift128 (Xorshift128)
 import Test.Unit (TestSuite, suite, test)
 
 import PRNG.Xorshift128 as Xorshift
