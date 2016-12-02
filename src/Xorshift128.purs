@@ -11,6 +11,10 @@ import PRNG.PRNG (class PRNG)
 -- | `Xorshift128` is a structure that holds state for Xorshift PRNG.
 -- | Xorshift algorithm is explained in https://en.wikipedia.org/wiki/Xorshift.
 -- | This is the version with maximal period 2^128 - 1
+-- |
+-- | Initialization behavior: First four values of the seed are used, rest is discarded.
+-- |
+-- | Default seeds: [1, 1, 1, 1]
 data Xorshift128 = Xorshift128 { x :: Int
   , y :: Int
   , z :: Int
@@ -27,8 +31,6 @@ defaultWValue :: Int
 defaultWValue = 1
 
 instance xorshift128PRNG :: PRNG Xorshift128 where
-  -- | First four values of the seed are used, rest is discarded.
-  -- | Default seeds are [1, 1, 1, 1]
   initialize fseeds =
     Xorshift128 { x : fromMaybe defaultXValue $ index seeds 0
       , y : fromMaybe defaultYValue $ index seeds 1

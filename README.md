@@ -1,6 +1,18 @@
 # purescript-prng
 
-Pseudo-random number generators. Currently only Xorshift is available.
+## Introduction
+
+Pseudo-random numbers are deterministic functions, used to simulate random
+number generation. Decades of statistical research was done to create reasonable
+tests for randomness, and more details about the idea can be found at https://en.wikipedia.org/wiki/Pseudorandom_number_generator
+
+This library provides a type class for pseudo-random number generators (PRNGs) similar to
+Haskell's `System.Random.RandomGen` class, but simplified (range is always full `Int` range,
+no `split` function provided for multiplicating number of PRNGs).
+
+None of the implemented generators is a cryptographically-secure PRNG. If you need one,
+you can either roll out your own, bind to JS via FFI or at least let me know that you
+need it via GitHub issues.
 
 ## Installation
 ```
@@ -8,4 +20,4 @@ bower install purescript-prng
 ```
 
 ## Documentation
-Module documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-prng).
+Module API documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-prng).

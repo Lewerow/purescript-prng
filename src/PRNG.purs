@@ -2,10 +2,13 @@ module PRNG.PRNG (class PRNG, initialize, generate) where
 
 import Data.Foldable (class Foldable)
 
-class PRNG a where
--- | Creates a starting state for the algorithm from a Foldable of `Int` (for example an `Array` or a `List`)
+-- | This is a class for Psedo-Random Number Generators
+-- | it has to provide an initialization routine and a generation function.
 -- |
--- | Each algorithm provides default values in case of empty Foldable, but it is recommended not to use them.
+-- | Since PRNGs are deterministic and PureScript is Pure (no internal state),
+-- | new generator state has to be returned as second value from generation call
+-- |
+-- | For intialization each algorithm provides default values in case of empty Foldable, but it is recommended not to use them.
 -- | Default values are not random, so you have to to pass all seed elements.
 -- | Seed values shall be random, e.g., received from `Control.Monad.Eff.Random`
 -- | Or some different source of entropy, like an external service (random.org or others)
@@ -20,22 +23,8 @@ class PRNG a where
 -- |
 -- | ``` purescript
 -- | seeds <- replicateM 4 (Random.randomInt -100000000 100000000)
--- | pure $ initialize seeds
+-- | pure $ (generate $ initialize seeds)
 -- | ```
+class PRNG a where
   initialize :: forall f. Foldable f => f Int -> a
-
-  -- | Excecute one step of the algorithm, return a record with
-  -- | generated pseudo-random value and new PRNG state.
-  -- |
-  -- | Note that this function is deterministic, so to get a sequence
-  -- | of pseudo-random numbers, you need to use the newest state for
-  -- | every new value (i.e., using same state twice will yield same numbers).
-  -- |
-  -- | Example of usage:
-  -- |
-  -- | ``` purescript
-  -- | state = initialize [1, 2, 3, 4]
-  -- | x = generate state
-  -- | y = generate x.state
-  -- | ```
   generate :: a -> { value :: Int, state :: a }
