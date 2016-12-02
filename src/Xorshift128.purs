@@ -6,8 +6,8 @@ import Data.Int.Bits ((.^.), zshr, shl)
 import Data.Maybe (fromMaybe)
 import Prelude (($))
 
--- | `Xorshift128` is a structure that holds state for Xorshift PRNG
--- | Xorshift algorithm is explained in https://en.wikipedia.org/wiki/Xorshift
+-- | `Xorshift128` is a structure that holds state for Xorshift PRNG.
+-- | Xorshift algorithm is explained in https://en.wikipedia.org/wiki/Xorshift.
 -- | This is the version with maximal period 2^128 - 1
 data Xorshift128 = Xorshift128 { x :: Int
   , y :: Int
@@ -25,10 +25,11 @@ defaultWValue :: Int
 defaultWValue = 1
 
 -- | Creates a starting `Xorshift128` state from an array of `Int`
+-- |
 -- | There shall be four integers in the array - if there are more, additional ones
 -- | will be discarded, but if there are fewer, default values will be used.
--- | Default values are not random (it's [1, 1, 1, 1]), so it's not recommended
--- | Seed values shall be random, e.g. received from `Control.Monad.Eff.Random`
+-- | Default values are not random (it's [1, 1, 1, 1]), so it's recommended to pass all seed elements.
+-- | Seed values shall be random, e.g., received from `Control.Monad.Eff.Random`
 -- |
 -- | For example:
 -- | ``` purescript
@@ -45,10 +46,11 @@ initialize fseeds =
   where seeds = fromFoldable fseeds
 
 -- | Excecute one step of Xorshift algorithm, return a record with
--- | generated pseudo-random value and new PRNG state
--- | note that this function is deterministic, so to get a sequence
+-- | generated pseudo-random value and new PRNG state.
+-- |
+-- | Note that this function is deterministic, so to get a sequence
 -- | of psuedo-random numbers, you need to use the newest state for
--- | every new value (i.e., using same state twice will yield same numbers)
+-- | every new value (i.e., using same state twice will yield same numbers).
 -- |
 -- | Example:
 -- | ``` purescript
