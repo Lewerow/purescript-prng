@@ -1,22 +1,16 @@
 module Test.Xorshift128 where
 
-import Prelude
+import Prelude (bind, negate)
 import Test.Unit.Assert as Assert
-import Data.Array ((:))
 import Test.Unit (TestSuite, suite, test)
+import Test.Helpers.PRNArray
 
 import PRNG.Xorshift128 (Xorshift128)
-import PRNG.Xorshift128 as Xorshift
-
-prSequence :: Int -> Xorshift128 -> Array Int
-prSequence 0 _ = []
-prSequence x gen = rnd.value : prSequence (x-1) rnd.state
-  where
-  rnd = Xorshift.generate gen
+import PRNG.PRNG (initialize)
 
 generator1_1_1_1 :: Xorshift128
 generator1_1_1_1 =
-  Xorshift.initialize [1, 1, 1, 1]
+  initialize [1, 1, 1, 1]
 firstThirty1111 :: Array Int
 firstThirty1111 = [2056, 1, 2056, 1, 4196417, 4194368, 2056, 1, 131648,
   4210688, 18504, 16449, 268456451, 306335811, 268572747, 302141506, 8423499,
@@ -25,7 +19,7 @@ firstThirty1111 = [2056, 1, 2056, 1, 4196417, 4194368, 2056, 1, 131648,
 
 generator1568_35181_651_77 :: Xorshift128
 generator1568_35181_651_77 =
-  Xorshift.initialize [1568, 35181, 651, 77]
+  initialize [1568, 35181, 651, 77]
 firstThirty1568_35181_651_77 :: Array Int
 firstThirty1568_35181_651_77 = [3225451, 75406817, 74109887, 73971991,
   -1922343778, 2097826119, 800037490, 1850621585, -1189736342, -1770441090,
@@ -37,7 +31,7 @@ firstThirty1568_35181_651_77 = [3225451, 75406817, 74109887, 73971991,
 
 generatorm15_m8976546_1651981_16541684 :: Xorshift128
 generatorm15_m8976546_1651981_16541684 =
-  Xorshift.initialize [-15, -8976546, 1651981, 16541684]
+  initialize [-15, -8976546, 1651981, 16541684]
 firstThirtym15_m8976546_1651981_16541684 :: Array Int
 firstThirtym15_m8976546_1651981_16541684 = [16519277, 1207347931, -1903276427,
   1840143255, -1926147785, 2137231928, -2090695097, -1676736673, -1682946816,
@@ -50,10 +44,10 @@ all :: forall e. TestSuite e
 all = suite "Xorshift128+ " do
   test "For seed 1 1 1 1" do
     Assert.equal firstThirty1111
-      (prSequence 30 generator1_1_1_1)
+      (prnArray 30 generator1_1_1_1)
   test "For seed 1568 35181 651 77" do
     Assert.equal firstThirty1568_35181_651_77
-      (prSequence 30 generator1568_35181_651_77)
+      (prnArray 30 generator1568_35181_651_77)
   test "For seed -15 -8976546 1651981 16541684" do
     Assert.equal firstThirtym15_m8976546_1651981_16541684
-      (prSequence 30 generatorm15_m8976546_1651981_16541684)
+      (prnArray 30 generatorm15_m8976546_1651981_16541684)

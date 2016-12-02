@@ -1,21 +1,16 @@
 module Test.LehmerRNG where
 
-import Prelude
+import Prelude (bind)
+
 import Test.Unit.Assert as Assert
-import Data.Array ((:))
 import Test.Unit (TestSuite, suite, test)
+import Test.Helpers.PRNArray
 
 import PRNG.LehmerRNG (LehmerRNG)
-import PRNG.LehmerRNG as Lehmer
-
-prSequence :: Int -> Lehmer.LehmerRNG -> Array Int
-prSequence 0 _ = []
-prSequence x gen = rnd.value : prSequence (x-1) rnd.state
-  where
-  rnd = Lehmer.generate gen
+import PRNG.PRNG (initialize)
 
 generator1 :: LehmerRNG
-generator1 = Lehmer.initialize [1]
+generator1 = initialize [1]
 firstThirty1 :: Array Int
 firstThirty1 = [16807, 282475249, 1622650073, 984943658, 1144108930,
   470211272, 101027544, 1457850878, 1458777923, 2007237709, 823564440,
@@ -25,7 +20,7 @@ firstThirty1 = [16807, 282475249, 1622650073, 984943658, 1144108930,
   1505795335]
 
 generator1568 :: LehmerRNG
-generator1568 = Lehmer.initialize [1568]
+generator1568 = initialize [1568]
 firstThirty1568 :: Array Int
 firstThirty1568 = [26353376, 539559150, 1694676416, 350913551, 813956995,
   704383575, 1644882761, 987576296, 293699209, 1285184857, 711370073,
@@ -36,7 +31,7 @@ firstThirty1568 = [26353376, 539559150, 1694676416, 350913551, 813956995,
 
 
 generator16541684 :: LehmerRNG
-generator16541684 = Lehmer.initialize [16541684]
+generator16541684 = initialize [16541684]
 firstThirty16541684 :: Array Int
 firstThirty16541684 = [990692525, 1128552484, 1006028284, 1178616357,
   615952171, 1436959457, 376499637, 1342574997, 1047295550, 1120338038,
@@ -49,10 +44,10 @@ all :: forall e. TestSuite e
 all = suite "LehmerRNG " do
   test "For seed 1" do
     Assert.equal firstThirty1
-      (prSequence 30 generator1)
+      (prnArray 30 generator1)
   test "For seed 1568" do
     Assert.equal firstThirty1568
-      (prSequence 30 generator1568)
+      (prnArray 30 generator1568)
   test "For seed 16541684" do
     Assert.equal firstThirty16541684
-      (prSequence 30 generator16541684)
+      (prnArray 30 generator16541684)
