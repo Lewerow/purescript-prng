@@ -1,4 +1,4 @@
-module PRNG.LehmerRNG (LehmerRNG) where
+module PRNG.LehmerRNG (LehmerRNG, module PRNG.PRNG) where
 
 import Data.Array (fromFoldable, index)
 import Data.Maybe (maybe)
@@ -11,7 +11,7 @@ import PRNG.PRNG (class PRNG)
 -- | Lehmer algorithm is explained in https://en.wikipedia.org/wiki/Lehmer_random_number_generator.
 -- | This is the version with A=16807, i.e., the original one (C++11 has A=48271, a revised number)
 -- |
--- | Initialization behavior: First value of the seed are used, rest is discarded.
+-- | Initialization behavior: First value of the seed is used, rest is discarded.
 -- |
 -- | Default seed: 1
 data LehmerRNG = LehmerRNG UInt

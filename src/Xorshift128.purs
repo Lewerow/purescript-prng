@@ -1,4 +1,4 @@
-module PRNG.Xorshift128 (Xorshift128) where
+module PRNG.Xorshift128 (Xorshift128, module PRNG.PRNG) where
 
 import Data.Foldable (class Foldable)
 import Data.Array (fromFoldable, index)

@@ -14,6 +14,9 @@ None of the implemented generators is a cryptographically-secure PRNG. If you ne
 you can either roll out your own, bind to JS via FFI or at least let me know that you
 need it via GitHub issues.
 
+It is probable that this implementation is not very efficient - it uses bitwise operations
+bound to JavaScript via FFI, which may cause a lot of overheard (for creating unary functions etc.).
+
 ## Installation
 ```
 bower install purescript-prng
