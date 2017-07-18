@@ -1,6 +1,6 @@
 module Test.LehmerRNG where
 
-import Prelude (bind)
+import Prelude (discard)
 
 import Test.Unit.Assert as Assert
 import Test.Unit (TestSuite, suite, test)

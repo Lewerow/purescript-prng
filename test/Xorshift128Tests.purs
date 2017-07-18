@@ -1,6 +1,6 @@
 module Test.Xorshift128 where
 
-import Prelude (bind, negate)
+import Prelude (discard, negate)
 import Test.Unit.Assert as Assert
 import Test.Unit (TestSuite, suite, test)
 import Test.Helpers.PRNArray

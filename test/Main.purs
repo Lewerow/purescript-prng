@@ -2,7 +2,7 @@ module Test.Main where
 
 import Test.LehmerRNG as Lehmer
 import Test.Xorshift128 as Xorshift
-import Prelude (bind)
+import Prelude (discard)
 import Test.Unit (suite)
 import Test.Unit.Main (runTest)
 
